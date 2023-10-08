@@ -1,0 +1,51 @@
+﻿@model FormValidation.Models.Login
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<form action="" method="post">
+    Name: <input type="text" name="Name" value="@(Model?.Name ?? "")" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Name")</span>
+    <br />
+
+    User ID: <input type="text" name="UserId" value="@(Model?.UserId ?? "")" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("UserId")</span>
+    <br />
+
+    Password: <input type="password" name="Password" value="@(Model?.Password ?? "")" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Password")</span>
+    <br />
+    ID: <input type="text" name="Id" id="Id" value="@(Model?.Id ?? "")" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Id")</span>
+    <br />
+
+    Email: <input type="email" name="Email" id="Email" value="@(Model?.Email ?? "")" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Email")</span>
+    <span id="emailCheckMessage" class="text-danger"></span>
+    <br />
+
+    <script>
+    function checkEmailMatchingId() {
+        var idValue = document.getElementById('Id').value;
+        var emailValue = document.getElementById('Email').value;
+
+        var emailPattern = new RegExp('^' + idValue + 'student.aiub.edu$', 'i');
+
+        if (!emailPattern.test(emailValue)) {
+            document.getElementById('emailCheckMessage').innerText = 'Email should match the ID pattern.';
+        } else {
+            document.getElementById('emailCheckMessage').innerText = '';
+        }
+    }
+
+        document.getElementById('Email').addEventListener('input', checkEmailMatchingId);
+
+    </script>
+
+    Date of Birth: <input type="date" id="DateOfBirth" name="DateOfBirth" value="@Model?.DateOfBirth?.ToString(" yyyy-MM-dd")" />
+    <span class="text-danger">@Html.ValidationMessage("DateOfBirth")</span>
+    <br />
+
+    <input type="submit" value="Login" class="btn btn-success" />
+</form>
